@@ -109,45 +109,46 @@ class SortingRobot:
             # What use does the light have? Is it to indicate it is carrying something?
             # Robot starts at list[0]
 
-        # Find a way to keep the loop alive.
-        
         # Turn light on
+        self.set_light_on()
 
         # While light is on:
+        while self.light_is_on():
 
             # Swap item with None in inventory
+            self.swap_item()
             
             # Move over the list to the right
+            while self.can_move_right():
+                self.move_right()
+
                 # Compare item in inventory with one in list. If item in inventory is larger than item in list, compare() will return one.
+                if self.compare_item() == 1:
+                    
                     # In that case, we should switch items
-
-                # If we've reached the end of the list (which we can check by can_move_right),
-                    # Move to the left until we encounter our None in the list
-                        # Swap item in inventory (the now lowest unsorted value) with None
+                    self.swap_item()
                     
-                        # Then we check can_move_to_the_right()
-                            # If true:
-                                # pass
-                            # else:
-                                # set_light_off()
 
+            # Move to the left as long as we don't encounter None
+            while self.can_move_left() == True and self.compare_item() is not None:
+                self.move_left()
 
+            # Now that we've reached our starting position (where None is located), we should swap the items.
+            self.swap_item()
 
-            # We swap the lowest unsorted value with None
-
-        # When we passed through the entire list without swapping anything, turn light off
-
-        pass
-                    
+            # Now that we've reached our starting position, we should check if we can go further to the right. If we cannot, that means we've reached the end of the list, which should mean we've sorted everything.
+            if self.can_move_right() is not True:
+                self.set_light_off()
+            else:
+            # If we can, we should move the robot one to the right and have him repeat the entire loop.
+                self.move_right()
 
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
-    l = [3, 2, 4, 1]
-
-    # l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
 
     robot = SortingRobot(l)
 
