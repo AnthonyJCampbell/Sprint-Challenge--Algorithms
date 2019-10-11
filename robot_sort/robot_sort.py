@@ -102,83 +102,42 @@ class SortingRobot:
             # What sorting algorithm to use?
                 # Bubble? (Fit nicely with the swappig methon)
                 # Insertion? (Dioes not seem to mesh well with the 'swap items')
-                # Selection sort is impossible since we're not allowed to declare any variables
+                # Selection sort is impossible since we're not allowed to declare any variables. Actually, it should be doable.
 
             # No efficiency requirement, but should run in less than 1 second
             # The user swaps a 'None' with the value in the list
             # What use does the light have? Is it to indicate it is carrying something?
             # Robot starts at list[0]
 
-        # APPROACH W/ INSERTION SORT
-            # Example list = [2,4,1,3]
-            # item = None
-            # Move over to the right (list[1] = 4)
+        # Find a way to keep the loop alive.
+        
+        # Turn light on
 
-            # Loop over the remaining unsorted list
-                # Swap item at list[1]
-                    # list = [2, None, 1, 3]
-                    # item = 4
+        # While light is on:
 
-                # Move left until item in list <= item in inventory (which means that we've reached the correct location for the item)
-                    # Move left (robot.position = 0)
-                    # robot.compare == 1 (hence, item is larger than item in list, so no need to swap - same with being equal)
-                    # If it were smaller, we would swap
-
-                # Then loop over all items between robot.location and the right until we run into None
-                    # Move one to the right and swap those items. (list = [2, 4, 1, 3], item = None)
-
-                    # if robot.item == None:
-                    #     break
-
-
-                # Then move one to the right
-
-
-
-            # Loop terminates when canMoveRight == false
-
-        # Move over every item in the list
-        for i in range(len(self._list)):
-            # If robot can move to the right, do so to create a further sorted list
-            if robot.can_move_right() == True:
-                robot.move_right()
-            # If robot cannot move to the right, we're at the end of the list, which means everything should be sorted.
-            else:
-                return robot._list
-
-            # Swap first unsorted item with 
-            robot.swap_item()
+            # Swap item with None in inventory
             
-            # Move to the left
-            for pos in range(robot._position, 0, -1):
-                robot.move_left()
-                print(robot._position)
-                print(robot._item)
-                print(robot._list[robot._position])
-                print("\n")
+            # Move over the list to the right
+                # Compare item in inventory with one in list. If item in inventory is larger than item in list, compare() will return one.
+                    # In that case, we should switch items
 
-                # If item in inventory >= item in list (This means that the item in inventory is the biggest in the so-far sorted list or equal to it and should be placed on the right)
-                if robot._item >= robot._list[robot._position]:
-                    robot.move_right()
-                    robot.swap_item()
-                    # We have to loop over the remaining stuff until we get to none
-
-                # elif item in list <= item in inventory 
-                elif robot._item < robot._list[robot._position]:
-                    # Swap item in inventory with the one in list
-                    robot.swap_item()
+                # If we've reached the end of the list (which we can check by can_move_right),
+                    # Move to the left until we encounter our None in the list
+                        # Swap item in inventory (the now lowest unsorted value) with None
+                    
+                        # Then we check can_move_to_the_right()
+                            # If true:
+                                # pass
+                            # else:
+                                # set_light_off()
 
 
-                    # Push all the items between the current position and None to the right
-                    for j in range(len(robot._list)):
-                        robot.move_right()
-                        # Swap item in inventory with the one in list
-                        robot.swap_item()
 
-                        # If item in inventory is None,
-                            # break
-                        if robot._item == None:
-                            break
+            # We swap the lowest unsorted value with None
+
+        # When we passed through the entire list without swapping anything, turn light off
+
+        pass
                     
 
 
@@ -186,7 +145,7 @@ if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
-    l = [4, 3, 2, 1]
+    l = [3, 2, 4, 1]
 
     # l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
 
