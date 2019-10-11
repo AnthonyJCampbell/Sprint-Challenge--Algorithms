@@ -96,8 +96,52 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # CONSTRAINTS
+            # Output should be a sorted list. i.e. [3, 1, 2] -> return [1, 2, 3]
+
+            # What sorting algorithm to use?
+                # Bubble? (Fit nicely with the swappig methon)
+                # Insertion? (Dioes not seem to mesh well with the 'swap items')
+                # Selection sort is impossible since we're not allowed to declare any variables. Actually, it should be doable.
+
+            # No efficiency requirement, but should run in less than 1 second
+            # The user swaps a 'None' with the value in the list
+            # What use does the light have? Is it to indicate it is carrying something?
+            # Robot starts at list[0]
+
+        # Turn light on
+        self.set_light_on()
+
+        # While light is on:
+        while self.light_is_on():
+
+            # Swap item with None in inventory
+            self.swap_item()
+            
+            # Move over the list to the right
+            while self.can_move_right():
+                self.move_right()
+
+                # Compare item in inventory with one in list. If item in inventory is larger than item in list, compare() will return one.
+                if self.compare_item() == 1:
+                    
+                    # In that case, we should switch items
+                    self.swap_item()
+                    
+
+            # Move to the left as long as we don't encounter None
+            while self.can_move_left() == True and self.compare_item() is not None:
+                self.move_left()
+
+            # Now that we've reached our starting position (where None is located), we should swap the items.
+            self.swap_item()
+
+            # Now that we've reached our starting position, we should check if we can go further to the right. If we cannot, that means we've reached the end of the list, which should mean we've sorted everything.
+            if self.can_move_right() is not True:
+                self.set_light_off()
+            else:
+            # If we can, we should move the robot one to the right and have him repeat the entire loop.
+                self.move_right()
 
 
 if __name__ == "__main__":
